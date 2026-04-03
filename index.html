@@ -687,23 +687,25 @@
     document.getElementById('upgradeModal').classList.remove('show');
   }
 
-  async function checkout(plan) {
+  // ── Stripe Payment Links (fill in once created in Stripe dashboard)
+  const PAYMENT_LINKS = {
+    ltd:     '',  // e.g. 'https://buy.stripe.com/...'
+    monthly: ''   // e.g. 'https://buy.stripe.com/...'
+  };
+
+  function checkout(plan) {
     closeModal();
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        showToast('Error starting checkout. Try again.');
-      }
-    } catch (e) {
-      showToast('Error: ' + e.message);
+    // Direct Payment Link: zero-backend, works anywhere
+    if (PAYMENT_LINKS[plan]) {
+      window.location.href = PAYMENT_LINKS[plan];
+      return;
     }
+    // Fallback: email to purchase
+    const subject = plan === 'ltd'
+      ? 'InvoiceQuick Lifetime Deal — €59'
+      : 'InvoiceQuick Pro Monthly — €9/mo';
+    window.location.href = 'mailto:info@theprofitfactory.ai?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent('Hi,\n\nI would like to purchase the InvoiceQuick ' + (plan === 'ltd' ? 'Lifetime Deal (€59)' : 'Pro Monthly plan (€9/mo)') + '.\n\nPlease send me a payment link.\n\nThanks!');
   }
 
   // --- Toast ---

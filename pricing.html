@@ -148,7 +148,7 @@
 </div>
 
 <div class="footer">
-  <p>© 2026 InvoiceQuick · Questions? <a href="mailto:hello@invoicequick.io" style="color:#3b82f6">hello@invoicequick.io</a></p>
+  <p>© 2026 InvoiceQuick · Questions? <a href="mailto:info@theprofitfactory.ai" style="color:#3b82f6">info@theprofitfactory.ai</a></p>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -163,29 +163,19 @@
     monthly: ''   // e.g. 'https://buy.stripe.com/...'
   };
 
-  async function checkout(plan) {
+  function checkout(plan) {
     // Direct Payment Link: zero-backend, works anywhere
     if (PAYMENT_LINKS[plan]) {
       window.location.href = PAYMENT_LINKS[plan];
       return;
     }
 
-    // Fallback: Vercel serverless function (requires deployment + STRIPE_SECRET_KEY)
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        showToast('Error starting checkout. Please try again.');
-      }
-    } catch (e) {
-      showToast('Error: ' + e.message);
-    }
+    // Fallback: email to purchase
+    const subject = plan === 'ltd'
+      ? 'InvoiceQuick Lifetime Deal — €59'
+      : 'InvoiceQuick Pro Monthly — €9/mo';
+    window.location.href = 'mailto:info@theprofitfactory.ai?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent('Hi,\n\nI would like to purchase the InvoiceQuick ' + (plan === 'ltd' ? 'Lifetime Deal (€59)' : 'Pro Monthly plan (€9/mo)') + '.\n\nPlease send me a payment link.\n\nThanks!');
   }
 
   function showToast(msg) {
