@@ -47,6 +47,7 @@
     .footer { text-align: center; padding: 24px; font-size: 13px; color: #94a3b8; }
     .toast { position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 14px; z-index: 9999; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateY(0); }
+    .plan-btn-link { text-decoration: none; display: block; text-align: center; }
     .scarcity { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 10px 16px; text-align: center; font-size: 14px; color: #92400e; margin: 0 24px 0; max-width: 900px; margin: -10px auto 20px; }
     .scarcity strong { color: #d97706; }
   </style>
@@ -98,7 +99,7 @@
       <li><span class="check">✓</span> All future features</li>
       <li><span class="check">✓</span> Priority support</li>
     </ul>
-    <button class="plan-btn plan-btn-primary" onclick="checkout('ltd')">Get Lifetime Access — €59</button>
+    <button class="plan-btn plan-btn-primary" onclick="checkout('ltd')" id="btn-ltd">Get Lifetime Access — €59</button>
   </div>
 
   <!-- Monthly -->
@@ -114,7 +115,7 @@
       <li><span class="check">✓</span> Priority support</li>
       <li><span class="cross">✗</span> All future features</li>
     </ul>
-    <button class="plan-btn plan-btn-secondary" onclick="checkout('monthly')">Start Pro — €9/mo</button>
+    <button class="plan-btn plan-btn-secondary" onclick="checkout('monthly')" id="btn-monthly">Start Pro — €9/mo</button>
   </div>
 </div>
 
@@ -153,7 +154,23 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  // ── Stripe Payment Links (set these once you create them in the Stripe dashboard)
+  // Create at: https://dashboard.stripe.com/payment-links
+  //   LTD: one-time €59, success URL → /success.html?plan=ltd
+  //   Monthly: recurring €9/mo, success URL → /success.html?plan=monthly
+  const PAYMENT_LINKS = {
+    ltd:     '',  // e.g. 'https://buy.stripe.com/...'
+    monthly: ''   // e.g. 'https://buy.stripe.com/...'
+  };
+
   async function checkout(plan) {
+    // Direct Payment Link: zero-backend, works anywhere
+    if (PAYMENT_LINKS[plan]) {
+      window.location.href = PAYMENT_LINKS[plan];
+      return;
+    }
+
+    // Fallback: Vercel serverless function (requires deployment + STRIPE_SECRET_KEY)
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
