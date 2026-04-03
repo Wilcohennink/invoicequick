@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful — InvoiceQuick</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #fff; border-radius: 20px; padding: 48px 40px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+    .icon { font-size: 64px; margin-bottom: 16px; }
+    h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    p { font-size: 16px; color: #64748b; margin-bottom: 24px; line-height: 1.6; }
+    .btn { padding: 13px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; border: none; background: #3b82f6; color: #fff; text-decoration: none; display: inline-block; }
+    .btn:hover { background: #2563eb; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">🎉</div>
+    <h1>You're now a Pro!</h1>
+    <p>Thank you for upgrading to InvoiceQuick Pro. Your unlimited access has been activated. Start creating professional invoices right away.</p>
+    <a href="index.html" class="btn">Start Creating Invoices →</a>
+  </div>
+  <script>
+    // Activate pro in localStorage so the invoice generator knows
+    localStorage.setItem('iq_pro', 'true');
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "invoicequick",
+  "version": "1.0.0",
+  "description": "Professional invoice generator with Lifetime Deal",
+  "dependencies": {
+    "stripe": "^14.25.0"
+  }
+}

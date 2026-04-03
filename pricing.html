@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InvoiceQuick Pricing — Free & Lifetime Deal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; }
+    .header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { font-size: 20px; font-weight: 700; color: #3b82f6; letter-spacing: -0.5px; }
+    .logo span { color: #1e293b; }
+    .btn { padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; text-decoration: none; display: inline-block; }
+    .btn-outline { background: transparent; border: 1.5px solid #e2e8f0; color: #475569; }
+    .btn-primary { background: #3b82f6; color: #fff; }
+    .hero { text-align: center; padding: 64px 24px 32px; }
+    .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+    .hero h1 span { color: #3b82f6; }
+    .hero p { font-size: 18px; color: #64748b; max-width: 500px; margin: 0 auto; }
+    .pricing { display: flex; gap: 24px; max-width: 900px; margin: 40px auto 80px; padding: 0 24px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+    .plan { background: #fff; border: 2px solid #e2e8f0; border-radius: 16px; padding: 32px; flex: 1; min-width: 260px; max-width: 320px; position: relative; }
+    .plan.featured { border-color: #3b82f6; box-shadow: 0 0 0 4px #dbeafe; }
+    .badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #3b82f6; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+    .plan-name { font-size: 16px; font-weight: 600; color: #64748b; margin-bottom: 8px; }
+    .plan-price { font-size: 48px; font-weight: 800; color: #1e293b; letter-spacing: -2px; }
+    .plan-price sup { font-size: 22px; font-weight: 600; vertical-align: top; margin-top: 12px; display: inline-block; }
+    .plan-period { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
+    .plan-features { list-style: none; margin-bottom: 28px; }
+    .plan-features li { padding: 7px 0; font-size: 15px; color: #475569; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 8px; }
+    .plan-features li:last-child { border-bottom: none; }
+    .check { color: #10b981; font-weight: 700; }
+    .cross { color: #cbd5e1; }
+    .plan-btn { width: 100%; padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+    .plan-btn-free { background: #f1f5f9; color: #475569; }
+    .plan-btn-free:hover { background: #e2e8f0; }
+    .plan-btn-primary { background: #3b82f6; color: #fff; }
+    .plan-btn-primary:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    .plan-btn-secondary { background: #1e293b; color: #fff; }
+    .plan-btn-secondary:hover { background: #0f172a; }
+    .guarantee { text-align: center; font-size: 14px; color: #64748b; padding: 0 24px 24px; }
+    .guarantee strong { color: #1e293b; }
+    .faq { max-width: 700px; margin: 0 auto 80px; padding: 0 24px; }
+    .faq h2 { font-size: 28px; font-weight: 700; margin-bottom: 24px; text-align: center; }
+    .faq-item { border-bottom: 1px solid #e2e8f0; padding: 16px 0; }
+    .faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .faq-item p { font-size: 14px; color: #64748b; line-height: 1.6; }
+    .footer { text-align: center; padding: 24px; font-size: 13px; color: #94a3b8; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 14px; z-index: 9999; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .scarcity { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 10px 16px; text-align: center; font-size: 14px; color: #92400e; margin: 0 24px 0; max-width: 900px; margin: -10px auto 20px; }
+    .scarcity strong { color: #d97706; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="logo">Invoice<span>Quick</span></a>
+  <a href="index.html" class="btn btn-outline">← Back to App</a>
+</div>
+
+<div class="hero">
+  <h1>Simple, <span>honest</span> pricing</h1>
+  <p>Start free. Upgrade when you're ready. No tricks, no hidden fees.</p>
+</div>
+
+<div class="scarcity">
+  <strong>⚡ Limited offer:</strong> Lifetime Deal available for the first <strong>500 customers</strong> only. <span id="spotsLeft">347 spots remaining.</span>
+</div>
+
+<div class="pricing">
+  <!-- Free -->
+  <div class="plan">
+    <div class="plan-name">Free</div>
+    <div class="plan-price"><sup>€</sup>0</div>
+    <div class="plan-period">forever free</div>
+    <ul class="plan-features">
+      <li><span class="check">✓</span> 3 invoices per month</li>
+      <li><span class="check">✓</span> PDF download</li>
+      <li><span class="check">✓</span> Logo upload</li>
+      <li><span class="check">✓</span> VAT calculation</li>
+      <li><span class="cross">✗</span> Unlimited invoices</li>
+      <li><span class="cross">✗</span> Priority support</li>
+    </ul>
+    <button class="plan-btn plan-btn-free" onclick="window.location.href='index.html'">Get Started Free</button>
+  </div>
+
+  <!-- Lifetime Deal -->
+  <div class="plan featured">
+    <div class="badge">🔥 BEST VALUE — LIMITED</div>
+    <div class="plan-name">Lifetime Deal</div>
+    <div class="plan-price"><sup>€</sup>59</div>
+    <div class="plan-period">one-time payment, forever</div>
+    <ul class="plan-features">
+      <li><span class="check">✓</span> Unlimited invoices</li>
+      <li><span class="check">✓</span> PDF download</li>
+      <li><span class="check">✓</span> Logo upload</li>
+      <li><span class="check">✓</span> VAT calculation</li>
+      <li><span class="check">✓</span> All future features</li>
+      <li><span class="check">✓</span> Priority support</li>
+    </ul>
+    <button class="plan-btn plan-btn-primary" onclick="checkout('ltd')">Get Lifetime Access — €59</button>
+  </div>
+
+  <!-- Monthly -->
+  <div class="plan">
+    <div class="plan-name">Pro Monthly</div>
+    <div class="plan-price"><sup>€</sup>9</div>
+    <div class="plan-period">per month, cancel anytime</div>
+    <ul class="plan-features">
+      <li><span class="check">✓</span> Unlimited invoices</li>
+      <li><span class="check">✓</span> PDF download</li>
+      <li><span class="check">✓</span> Logo upload</li>
+      <li><span class="check">✓</span> VAT calculation</li>
+      <li><span class="check">✓</span> Priority support</li>
+      <li><span class="cross">✗</span> All future features</li>
+    </ul>
+    <button class="plan-btn plan-btn-secondary" onclick="checkout('monthly')">Start Pro — €9/mo</button>
+  </div>
+</div>
+
+<div class="guarantee">
+  <strong>30-day money-back guarantee.</strong> Not happy? Email us for a full refund, no questions asked.
+</div>
+
+<div class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>What does "Lifetime Deal" mean?</h3>
+    <p>You pay once (€59) and get unlimited access to InvoiceQuick forever — no recurring fees, ever. As we add new features, you'll automatically get them too.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Do I need to create an account?</h3>
+    <p>No! You can create your first 3 invoices completely without signing up. We use local storage to remember your preferences.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Is my data safe?</h3>
+    <p>Your invoice data is stored locally in your browser. We never upload your client or business information to our servers.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I cancel the monthly plan?</h3>
+    <p>Yes, cancel anytime. You'll keep Pro access until the end of your billing period.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Which invoice formats are supported?</h3>
+    <p>We generate professional A4 PDF invoices with your logo, line items, VAT breakdown, and custom accent colors.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>© 2026 InvoiceQuick · Questions? <a href="mailto:hello@invoicequick.io" style="color:#3b82f6">hello@invoicequick.io</a></p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  async function checkout(plan) {
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        showToast('Error starting checkout. Please try again.');
+      }
+    } catch (e) {
+      showToast('Error: ' + e.message);
+    }
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>
